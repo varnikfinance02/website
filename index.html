@@ -293,6 +293,9 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
   function toggleMenu(){mobileMenu.classList.toggle('show');}
   document.querySelector('#contactForm').addEventListener('submit', e => {e.preventDefault(); alert('Thank you! We will contact you soon.');});
+
+  document.querySelector('#contactForm').reset();
+
 document.querySelector('#contactForm').addEventListener('submit', e => {
   e.preventDefault();
 
@@ -310,7 +313,6 @@ document.querySelector('#contactForm').addEventListener('submit', e => {
   .then(response => {
     if (response.result === "success") {
       alert("Thank you! Your message has been sent.");
-      document.querySelector('#contactForm').reset();
     }
   })
   .catch(err => alert("Something went wrong."));
