@@ -297,24 +297,29 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
 document.querySelector('#contactForm').addEventListener('submit', e => {
   e.preventDefault();
 
+  const formStatus = document.getElementById('form-status');
+  formStatus.textContent = "Sending...";
+
   const data = {
     name: document.querySelector('input[placeholder="Your Name"]').value,
     email: document.querySelector('input[placeholder="Your Email"]').value,
     message: document.querySelector('textarea').value
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbyu2PCTGteiguXY20ISD2_35HjtojkgxWREe10c760OYYYF5YSn08xASzKRGZX1ECw/exec", {   // Paste your Google Apps Script URL here
+  fetch("https://script.google.com/macros/s/AKfycbyu2PCTGteiguXY20ISD2_35HjtojkgxWREe10c760OYYYF5YSn08xASzKRGZX1ECw/exec", {
     method: "POST",
     body: JSON.stringify(data)
   })
   .then(res => res.json())
   .then(response => {
     if (response.result === "success") {
-      alert("Thank you! Your message has been sent.");
-      document.querySelector('#contactForm').reset();
+      formStatus.textContent = "Message sent successfully!";
+      document.querySelector('#contactForm').reset(); // Clears the form
+    } else {
+      formStatus.textContent = "Failed to send. Please try again.";
     }
   })
-  .catch(err => alert("Something went wrong."));
+  .catch(() => formStatus.textContent = "Error sending message.");
 });
 
 </script>
